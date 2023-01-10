@@ -10,16 +10,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack"
 
 // Component
 import RegisterScreen from "@screens/Register/RegisterScreen"
+import GoalSettingScreen from "@screens/GoalSetting/GoalSettingScreen"
 
 const Stack = createNativeStackNavigator()
-
-function HomeScreen() {
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Home Screen</Text>
-      </View>
-    );
-  }
 
 export default function App() {
 	return (
@@ -30,7 +23,7 @@ export default function App() {
 					}}
 				>
                     <Stack.Screen name="Register" component={RegisterScreen} />
-					<Stack.Screen name="Home" component={HomeScreen} />
+					<Stack.Screen name="GoalSetting" component={GoalSettingScreen} />
 				</Stack.Navigator>
 		</NavigationContainer>
 	)

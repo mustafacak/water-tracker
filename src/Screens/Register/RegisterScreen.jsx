@@ -8,6 +8,9 @@ import { Icon } from "@rneui/themed"
 // Style
 import { styles } from "@styles/Register/RegisterScreen.styles"
 
+// Utils
+import { COLOR } from "@configs/Enums"
+
 // Common Component
 import InputText from "@components/Common/InputText/InputText"
 import CustomButton from "@components/Common/CustomBotton/CustomButton"
@@ -23,7 +26,7 @@ export default function RegisterScreen({ navigation }) {
 		<View style={styles.container}>
 			<View style={styles.contentContainer}>
                 
-				<Icon name="tint" type="font-awesome" size={100} color="#5eb6ff" />
+				<Icon name="tint" type="font-awesome" size={100} color={COLOR.TINT} />
                 <Text style={styles.title}>Water Tracker</Text>
 				<InputText placeholder={"First Name"} />
 				<InputText placeholder={"Last Name"} />

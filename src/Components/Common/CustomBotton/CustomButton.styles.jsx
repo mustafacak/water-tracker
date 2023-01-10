@@ -1,4 +1,8 @@
+// React Native
 import { StyleSheet } from "react-native"
+
+// Utils
+import { COLOR } from "@configs/Enums"
 export const styles = StyleSheet.create({
 	container: {
          width: "100%", 
@@ -11,7 +15,7 @@ export const styles = StyleSheet.create({
 		justifyContent: "center",
 		borderRadius: 10,
 		padding: 10,
-		backgroundColor: "#5495ff",
+		backgroundColor: COLOR.BLUE,
 	},
 
 	text: {

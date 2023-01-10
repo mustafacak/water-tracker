@@ -1,10 +1,12 @@
 import { StyleSheet } from "react-native"
+
+// Utils
+import { COLOR } from "@configs/Enums"
+
 export const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: "#131A26",
-		//alignItems: "center",
-		//justifyContent: "center",
+		backgroundColor: COLOR.BACKGROUND_COLOR,
 		padding: 15,
 		paddingTop: 30,
 	},

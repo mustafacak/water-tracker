@@ -1,4 +1,8 @@
 import { StyleSheet } from "react-native"
+
+// Utils
+import { COLOR } from "@configs/Enums"
+
  export const styles = StyleSheet.create({
     container: {
         width: "100%",
@@ -7,7 +11,7 @@ import { StyleSheet } from "react-native"
         borderWidth: 1,
         borderRadius: 8,
         borderColor: "#bfbfbf",
-        backgroundColor: "#131A26",
+		backgroundColor: COLOR.BACKGROUND_COLOR,
         marginBottom: 10,
 
     },

@@ -14,6 +14,7 @@ import CustomButton from "@components/Common/CustomBotton/CustomButton"
 
 export default function RegisterScreen({ navigation }) {
 
+    // Function
     function navigateGoalScreen() {
         navigation.navigate("GoalSetting")
     }
@@ -23,7 +24,7 @@ export default function RegisterScreen({ navigation }) {
 			<View style={styles.contentContainer}>
                 
 				<Icon name="tint" type="font-awesome" size={100} color="#5eb6ff" />
-                <Text style={{ fontSize: 25, fontWeight: "bold", color: "#FFFFFF", marginBottom: 35 }}>Water Tracker</Text>
+                <Text style={styles.title}>Water Tracker</Text>
 				<InputText placeholder={"First Name"} />
 				<InputText placeholder={"Last Name"} />
 				<InputText placeholder={"Age"} />

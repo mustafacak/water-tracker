@@ -12,17 +12,26 @@ import { styles } from "@styles/GoalSetting/GoalSettingScreen.styles"
 import InputText from "@components/Common/InputText/InputText"
 import CustomButton from "@components/Common/CustomBotton/CustomButton"
 
-export default function GoalSettingScreen() {
-    return (
-        <View style={styles.container}>
-        <View style={styles.contentContainer}>
-            
-            <Icon name="bullseye" type="font-awesome" size={100} color="#5eb6ff" />
-            <Text style={{ fontSize: 25, fontWeight: "bold", color: "#FFFFFF", marginBottom: 35 }}>Daily Water Target</Text>
-            <InputText placeholder={"2 lt"} />
-            <CustomButton title={"Edit"} color={"#FFB300"} />
-            <CustomButton title={"Save"} />
-        </View>
-    </View>
-    )
+export default function GoalSettingScreen({ navigation }) {
+	// Function
+	function navigateMainScreen() {
+		navigation.navigate("Main")
+	}
+
+	return (
+		<View style={styles.container}>
+			<View style={styles.contentContainer}>
+				<Icon
+					name="bullseye"
+					type="font-awesome"
+					size={100}
+					color="#5eb6ff"
+				/>
+				<Text style={styles.title}>Daily Water Target</Text>
+				<InputText placeholder={"2 lt"} />
+				<CustomButton title={"Edit"} color={"#FFB300"} />
+				<CustomButton title={"Save"} onPress={navigateMainScreen} />
+			</View>
+		</View>
+	)
 }

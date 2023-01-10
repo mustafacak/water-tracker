@@ -16,4 +16,10 @@ import { StyleSheet } from "react-native"
 		padding: 25,
 		marginBottom: 25,
 	},
+    title: {
+        fontSize: 25,
+        fontWeight: "bold",
+        color: "#FFFFFF",
+        marginBottom: 35,
+    }
 })

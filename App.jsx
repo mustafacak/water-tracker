@@ -1,10 +1,4 @@
 // React Native
-import { Text, View } from "react-native"
-
-// Style
-import { styles } from "@styles/App/App.styles"
-
-// Navigation
 import { NavigationContainer } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 

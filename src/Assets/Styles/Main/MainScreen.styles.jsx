@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
     },
     waterButtonsContainer: {
         flexDirection: "row",
-        padding: 10,
-        justifyContent: "center",
+        paddingVertical: 10,
+        justifyContent: "space-between",
     }
 })

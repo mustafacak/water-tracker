@@ -6,14 +6,13 @@ import { COLOR } from "@configs/Enums"
 
 export const styles = StyleSheet.create({
 	container: {
-		backgroundColor: "#5eb6ff",
-		padding: 15,
-		borderRadius: 10,
-		margin: 0,
+		backgroundColor: COLOR.ORANGE,
+		padding: 10,
+		borderRadius: 50,
+		marginBottom: 10,
 	},
-	title: { 
-        textAlign: "center",
+	text: { 
         color: COLOR.WHITE,
         fontWeight: "bold" 
-    }
+    },
 })

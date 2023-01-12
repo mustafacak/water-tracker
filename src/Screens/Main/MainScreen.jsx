@@ -1,9 +1,8 @@
 // React
-import React from "react"
+import React, { useState } from "react"
 
 // React Native
-import { Text, View, TouchableOpacity } from "react-native"
-import { Icon } from "@rneui/themed"
+import { Text, View } from "react-native"
 
 // Style
 import { styles } from "@styles/Main/MainScreen.styles"
@@ -18,8 +17,14 @@ import { COLOR } from "@configs/Enums"
 import WaterButton from "@components/Main/WaterButton/WaterButton"
 import StatusBar from "@components/Common/StatusBar/StatusBar"
 import Avatar from "@components/Main/Avatar/Avatar"
+import CustomModal from "@components/Modal/CustomModal"
 
 export default function MainScreen({ navigation }) {
+
+    // useState
+    const [modalVisible, setModalVisible] = useState(false)
+    const [textArray, setTextArray] = useState([])
+
 	// Definition
 	const calendarTheme = {
 		calendarBackground: COLOR.BACKGROUND_COLOR,
@@ -31,34 +36,20 @@ export default function MainScreen({ navigation }) {
 		textMonthFontWeight: "bold",
 	}
 
+    function handleOnAvatar(){
+        setTextArray(["User: Mustafa Ç.", "Goal: 3 lt"])
+        setModalVisible(true)
+    }
+
+
 	// Render
 	return (
 		<View style={styles.container}>
 			<View style={styles.contentContainer}>
-                <Avatar text={"Hasan Çakmak"} />
+                <Avatar text={"Hasan Çakmak"} onPress={handleOnAvatar} />
 				<Calendar theme={calendarTheme} style={styles.calenderStyle} />
 				<View style={{ flexDirection: "row" }}>
-					<StatusBar completed={29} />
-					<TouchableOpacity
-						style={{
-							flex: 1,
-							backgroundColor: COLOR.ORANGE,
-							padding: 15,
-							borderRadius: 10,
-							marginVertical: 15,
-							marginLeft: 10,
-						}}
-					>
-						<Text
-							style={{
-								textAlign: "center",
-								color: COLOR.WHITE,
-								fontWeight: "bold",
-							}}
-						>
-							3lt
-						</Text>
-					</TouchableOpacity>
+					<StatusBar completed={45} />
 				</View>
 
 				<View style={styles.waterButtonsContainer}>
@@ -67,6 +58,7 @@ export default function MainScreen({ navigation }) {
 					<WaterButton title={"750ml"} />
 					<WaterButton title={"1lt"} />
 				</View>
+                <CustomModal modalVisible={modalVisible} textArray={textArray} setModalVisible={setModalVisible} />
 			</View>
 		</View>
 	)

@@ -4,7 +4,7 @@ import { COLOR } from "@configs/Enums"
 export const styles = StyleSheet.create({
 	text: { 
         fontWeight: "bold", 
-        width: 100, 
+        width: 150, 
         color: "#FFFFFF"
     },
 	statusBar: {
@@ -20,4 +20,14 @@ export const styles = StyleSheet.create({
 		borderRadius: 0,
 		padding: 15,
 	},
+    infoButton: {
+        position: "absolute",
+        right: 12,
+        top:8,
+        borderWidth: 1,
+        borderColor: COLOR.WHITE,
+        borderRadius: 7,
+        padding: 5,
+        flexDirection: "row"
+    }
 })

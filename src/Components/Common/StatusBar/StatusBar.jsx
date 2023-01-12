@@ -6,7 +6,7 @@ import { Icon } from "@rneui/themed"
 import { styles } from "./StatusBar.styles"
 import { COLOR } from "@configs/Enums"
 
-export default function StatusBar({ completed }) {
+export default function StatusBar({ completed, goal, infoOnPress }) {
 	return (
 		<View style={styles.statusBar}>
 			<View style={[styles.activeStatusBar, { width: completed + "%" }]}>
@@ -15,6 +15,7 @@ export default function StatusBar({ completed }) {
 			
             <TouchableOpacity
 				style={styles.infoButton}
+                onPress={infoOnPress}
 			>
 				<Icon
 					name="info"
@@ -23,7 +24,7 @@ export default function StatusBar({ completed }) {
 					color={COLOR.WHITE}
 				/>
 				<Text style={{ color: COLOR.WHITE, marginLeft: 5 }}>
-					3000ml
+					{goal}ml
 				</Text>
 			</TouchableOpacity>
 		</View>

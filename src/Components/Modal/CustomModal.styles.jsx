@@ -1,4 +1,6 @@
 import { StyleSheet } from "react-native"
+
+import { COLOR } from "@configs/Enums"
  export const styles = StyleSheet.create({
      // Modal
      centeredView: {
@@ -25,14 +27,18 @@ import { StyleSheet } from "react-native"
       button: {
         borderRadius: 5,
         padding: 8,
+        margin: 5,
         paddingHorizontal:18,
         elevation: 2
       },
+      buttonDefault:{
+        backgroundColor: COLOR.BLUE
+      },
       buttonClose: {
-        backgroundColor: "orange",
+        backgroundColor: COLOR.ORANGE
       },
       textStyle: {
-        color: "white",
+        color: COLOR.WHITE,
         fontWeight: "bold",
         textAlign: "center"
       },
@@ -41,5 +47,8 @@ import { StyleSheet } from "react-native"
         fontSize: 18,
         fontWeight: "bold",
         textAlign: "center"
+      },
+      buttonContainer: {
+        flexDirection: "row",
       }
 })

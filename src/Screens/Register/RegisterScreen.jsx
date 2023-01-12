@@ -1,9 +1,10 @@
 // React
-import React from "react"
+import React, { useState, useEffect } from "react"
 
 // React Native
 import { View, Text } from "react-native"
 import { Icon } from "@rneui/themed"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 // Style
 import { styles } from "@styles/Register/RegisterScreen.styles"
@@ -17,10 +18,53 @@ import CustomButton from "@components/Common/CustomBotton/CustomButton"
 
 export default function RegisterScreen({ navigation }) {
 
+    // useState
+    const [firstName, setFirstName] = useState("")
+    const [lastName, setLastName] = useState("")
+    const [age, setAge] = useState("")
+
     // Function
     function navigateGoalScreen() {
         navigation.navigate("GoalSetting")
     }
+
+    function register(){
+        //console.log(firstName + " " + lastName + " " + age)
+        const userData = {
+            firstName: firstName,
+            lastName: lastName,
+            age: age
+        }
+        AsyncStorage.setItem("userData", JSON.stringify(userData))
+        navigateGoalScreen()
+    }
+
+
+    const fetchAllItems = async () => {
+        try {
+            const keys = await AsyncStorage.getAllKeys()
+            const items = await AsyncStorage.multiGet(keys)
+    
+            console.table(items)
+        } catch (error) {
+            console.log(error, "problemo")
+        }
+    }
+
+    useEffect(() => {
+        AsyncStorage.clear()
+        AsyncStorage.getItem("userData").then((userData) => {
+            if(userData){
+                console.log("userdata var!")
+                navigation.navigate("Main")
+            } else{
+                console.log("userdata yok ")
+            }
+           
+        }).catch((error) => {
+            console.log("error:", error)
+        })
+    }, []);
 
 	return (
 		<View style={styles.container}>
@@ -28,10 +72,10 @@ export default function RegisterScreen({ navigation }) {
                 
 				<Icon name="tint" type="font-awesome" size={100} color={COLOR.TINT} />
                 <Text style={styles.title}>Water Tracker</Text>
-				<InputText placeholder={"First Name"} />
-				<InputText placeholder={"Last Name"} />
-				<InputText placeholder={"Age"} />
-				<CustomButton title={"Save"} onPress={navigateGoalScreen} />
+				<InputText val={firstName} setVal={setFirstName} placeholder={"First Name"} />
+				<InputText val={lastName} setVal={setLastName} placeholder={"Last Name"} />
+				<InputText val={age} setVal={setAge} placeholder={"Age"} />
+				<CustomButton title={"Save"} onPress={register} />
 			</View>
 		</View>
 	)

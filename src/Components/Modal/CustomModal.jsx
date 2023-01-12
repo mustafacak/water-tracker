@@ -4,8 +4,12 @@ import { Modal, Pressable, Text, View } from "react-native"
 // Style
 import { styles } from "./CustomModal.styles"
 
-
-export default function CustomModal({ textArray, modalVisible, setModalVisible }) {
+export default function CustomModal({
+	textArray,
+	additionalButton,
+	modalVisible,
+	setModalVisible,
+}) {
 	return (
 		<Modal
 			transparent={true}
@@ -16,15 +20,28 @@ export default function CustomModal({ textArray, modalVisible, setModalVisible }
 		>
 			<View style={styles.centeredView}>
 				<View style={styles.modalView}>
-                    {textArray?.map(text => (
-                        <Text key={text.index} style={styles.modalText}>{text}</Text>
-                    ))}
-					<Pressable
-						style={[styles.button, styles.buttonClose]}
-						onPress={() => setModalVisible(!modalVisible)}
-					>
-						<Text style={styles.textStyle}>OK</Text>
-					</Pressable>
+					{textArray?.map((text) => (
+						<Text key={text.index} style={styles.modalText}>
+							{text}
+						</Text>
+					))}
+
+					<View style={styles.buttonContainer}>
+						<Pressable
+							style={[styles.button, styles.buttonClose]}
+							onPress={() => setModalVisible(!modalVisible)}
+						>
+							<Text style={styles.textStyle}>OK</Text>
+						</Pressable>
+						{additionalButton && (
+							<Pressable
+								style={[styles.button, styles.buttonDefault]}
+								onPress={additionalButton.onPress}
+							>
+								<Text style={styles.textStyle}>{additionalButton.buttonTitle}</Text>
+							</Pressable>
+						)}
+					</View>
 				</View>
 			</View>
 		</Modal>

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react"
 // React Native
 import { Text, View } from "react-native"
 import { Icon } from "@rneui/themed"
-import { useFocusEffect } from "@react-navigation/native"
+import { useFocusEffect, useIsFocused } from "@react-navigation/native"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
 // Style
@@ -18,31 +18,21 @@ import { COLOR } from "@configs/Enums"
 export default function GoalSettingScreen({ navigation }) {
 	// useState
 	const [goal, setGoal] = useState("")
+	const [getGoalStorage, setGetGoalStorage] = useState("")
+	const isFocused = useIsFocused()
+	const [controlBackNavigate, setControlBackNavigate] = useState(true)
 
 	//debugger
 
 	// useEffect
-    useFocusEffect(() => {
-        
-
-            console.log("focus effect !")
-            AsyncStorage.getItem("goal").then((goalData) => {
-                //console.log("Goal", goal)
-                //setGoal(goalData)
-            })
-            console.log("test callback")
-  
-           
-      
-    })
-
 	useEffect(() => {
-		console.log("goal useEffect")
+		console.log("goal useEffect---------")
 		//debugger
 		AsyncStorage.getItem("goal").then((goal) => {
-			console.log("Goal", goal)
+			console.log("Goal ü aldım set ettim2", goal)
+			setGoal(goal)
 		})
-	}, [])
+	}, [isFocused])
 
 	// Function
 	function navigateMainScreen() {
@@ -51,7 +41,6 @@ export default function GoalSettingScreen({ navigation }) {
 
 	function goalSetting() {
 		AsyncStorage.setItem("goal", goal)
-		//console.log("Set goal", goal)
 		navigateMainScreen()
 	}
 

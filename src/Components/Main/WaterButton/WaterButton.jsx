@@ -8,10 +8,10 @@ import { styles } from "./WaterButton.styles"
 // Utils
 import { COLOR } from "@configs/Enums"
 
-export default function WaterButton({ title, onPress }) {
+export default function WaterButton({ title, onPress, style }) {
 	return (
 		<TouchableOpacity
-			style={styles.container}
+			style={[styles.container, { opacity: 0.5 }, style]}
             onPress={onPress}
 		>
 			<Icon

@@ -22,6 +22,7 @@ import WaterButton from "@components/Main/WaterButton/WaterButton"
 import StatusBar from "@components/Common/StatusBar/StatusBar"
 import Avatar from "@components/Main/Avatar/Avatar"
 import CustomModal from "@components/Modal/CustomModal"
+import CustomButton from "@components/Common/CustomBotton/CustomButton"
 
 export default function MainScreen({ navigation }) {
 	// useState
@@ -30,6 +31,9 @@ export default function MainScreen({ navigation }) {
 	const [userData, setUserData] = useState({})
 	const [goal, setGoal] = useState(0)
     const [additionalButton, setAdditionalButton] = useState(false)
+    const [waterButtonOpacity, setWaterButtonOpacity] = useState([1, 1, 1, 1])
+    const [waterButtonVolume, setWaterButtonVolume] = useState([])
+    const [additiveWaterVolume, setAdditiveWaterVolume] = useState(0)
 
     // useEffect
     useEffect(() => {
@@ -49,7 +53,7 @@ export default function MainScreen({ navigation }) {
 	}
 
 	function handleOnAvatar() {
-		setTextArray([`User: ${userData.firstName} ${userData.lastName}`, `Age: ${userData.age}`])
+		setTextArray([`Welcome ${userData.firstName} ${userData.lastName} (${userData.age})`])
 		setAdditionalButton(false)
         setModalVisible(true)
 	}
@@ -64,6 +68,36 @@ export default function MainScreen({ navigation }) {
         setModalVisible(true)
     }
 
+    function setWaterVol(vol, index){
+        console.log(vol)
+        console.log(index)
+
+
+        let newOpacityArray = [...waterButtonOpacity]
+        //let newVolumeArray = [...waterButtonVolume]
+
+        if(newOpacityArray[index] === 1){
+            newOpacityArray[index] = 0.5
+            //newVolumeArray.push(vol)
+            setAdditiveWaterVolume(additiveWaterVolume + vol)
+
+        } else{
+            setAdditiveWaterVolume(additiveWaterVolume - vol)
+            newOpacityArray[index] = 1
+            // const volumeArrayIndex = newVolumeArray.findIndex((element) => element === vol)
+            // newVolumeArray.splice(volumeArrayIndex, 1)
+            
+
+
+        }
+
+        //setWaterButtonVolume(newVolumeArray)
+        setWaterButtonOpacity(newOpacityArray)
+
+        console.log("waterButtonVolume:" + additiveWaterVolume)
+
+    }
+
 	// Render
 	return (
 		<View style={styles.container}>
@@ -75,11 +109,12 @@ export default function MainScreen({ navigation }) {
 				</View>
 
 				<View style={styles.waterButtonsContainer}>
-					<WaterButton title={"200ml"} />
-					<WaterButton title={"500ml"} />
-					<WaterButton title={"750ml"} />
-					<WaterButton title={"1lt"} />
+					<WaterButton title={"200ml"} style={{ opacity: waterButtonOpacity[0]}} onPress={() => setWaterVol(200, 0)} />
+					<WaterButton title={"500ml"} style={{ opacity: waterButtonOpacity[1]}} onPress={() => setWaterVol(500, 1)} />
+					<WaterButton title={"750ml"} style={{ opacity: waterButtonOpacity[2]}} onPress={() => setWaterVol(750, 2)} />
+					<WaterButton title={"1lt"} style={{ opacity: waterButtonOpacity[3]}} onPress={() => setWaterVol(1000, 3)} />
 				</View>
+                <CustomButton title={`+ Add ${additiveWaterVolume}ml`} disabled={additiveWaterVolume > 0 ? false : true} />
 				<CustomModal
 					modalVisible={modalVisible}
 					textArray={textArray}

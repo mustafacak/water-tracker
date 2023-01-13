@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react"
 import { View, Text } from "react-native"
 import { Icon } from "@rneui/themed"
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import { useIsFocused } from "@react-navigation/native"
 
 // Style
 import { styles } from "@styles/Register/RegisterScreen.styles"
@@ -17,6 +18,9 @@ import InputText from "@components/Common/InputText/InputText"
 import CustomButton from "@components/Common/CustomBotton/CustomButton"
 
 export default function RegisterScreen({ navigation }) {
+
+    // Definition
+    const isFocused = useIsFocused()
 
     // useState
     const [firstName, setFirstName] = useState("")
@@ -52,7 +56,8 @@ export default function RegisterScreen({ navigation }) {
     }
 
     useEffect(() => {
-        AsyncStorage.clear()
+        //AsyncStorage.clear()
+
         AsyncStorage.getItem("userData").then((userData) => {
             if(userData){
                 console.log("userdata var!")
@@ -60,11 +65,10 @@ export default function RegisterScreen({ navigation }) {
             } else{
                 console.log("userdata yok ")
             }
-           
         }).catch((error) => {
             console.log("error:", error)
         })
-    }, []);
+    }, [isFocused])
 
 	return (
 		<View style={styles.container}>

@@ -16,13 +16,15 @@ import CustomButton from "@components/Common/CustomBotton/CustomButton"
 import { COLOR } from "@configs/Enums"
 
 export default function GoalSettingScreen({ navigation }) {
+
+    // Definition
+    const isFocused = useIsFocused()
+
 	// useState
 	const [goal, setGoal] = useState("")
 	const [getGoalStorage, setGetGoalStorage] = useState("")
-	const isFocused = useIsFocused()
 	const [controlBackNavigate, setControlBackNavigate] = useState(true)
 
-	//debugger
 
 	// useEffect
 	useEffect(() => {

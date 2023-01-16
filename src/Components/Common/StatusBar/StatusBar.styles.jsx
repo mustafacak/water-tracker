@@ -4,8 +4,9 @@ import { COLOR } from "@configs/Enums"
 export const styles = StyleSheet.create({
 	text: { 
         fontWeight: "bold", 
-        width: 150, 
-        color: "#FFFFFF"
+        width: 250, 
+        color: "#FFFFFF",
+        marginLeft: 15
     },
 	statusBar: {
 		backgroundColor: COLOR.BACKGROUND_COLOR,

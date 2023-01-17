@@ -14,14 +14,11 @@ export default function CustomModal({
 		<Modal
 			transparent={true}
 			visible={modalVisible}
-			onRequestClose={() => {
-				setModalVisible(!modalVisible)
-			}}
 		>
 			<View style={styles.centeredView}>
 				<View style={styles.modalView}>
 					{textArray?.map((text) => (
-						<Text key={text.index} style={styles.modalText}>
+						<Text key={text} style={styles.modalText}>
 							{text}
 						</Text>
 					))}

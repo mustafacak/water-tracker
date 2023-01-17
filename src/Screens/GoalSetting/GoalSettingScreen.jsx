@@ -22,9 +22,6 @@ export default function GoalSettingScreen({ navigation }) {
 
 	// useState
 	const [goal, setGoal] = useState("")
-	const [getGoalStorage, setGetGoalStorage] = useState("")
-	const [controlBackNavigate, setControlBackNavigate] = useState(true)
-
 
 	// useEffect
 	useEffect(() => {
@@ -41,7 +38,7 @@ export default function GoalSettingScreen({ navigation }) {
 		navigation.navigate("Main")
 	}
 
-	function goalSetting() {
+	function handleOnSave() {
 		AsyncStorage.setItem("goal", goal)
 		navigateMainScreen()
 	}
@@ -57,7 +54,7 @@ export default function GoalSettingScreen({ navigation }) {
 				/>
 				<Text style={styles.title}>Daily Water Target</Text>
 				<InputText val={goal} setVal={setGoal} placeholder={"2 lt"} />
-				<CustomButton title={"Save"} onPress={goalSetting} />
+				<CustomButton title={"Save"} onPress={handleOnSave} />
 				<CustomButton title={"Cancel"} color={COLOR.ORANGE} />
 			</View>
 		</View>

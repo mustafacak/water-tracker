@@ -23,13 +23,14 @@ export const styles = StyleSheet.create({
 		color: "#FFFFFF",
 		marginBottom: 35,
 	},
-	calenderStyle: { 
-        borderRadius: 15, 
-        padding: 10 
-    },
-    waterButtonsContainer: {
-        flexDirection: "row",
-        paddingVertical: 10,
-        justifyContent: "space-between",
-    }
+	calenderStyle: {
+		borderRadius: 15,
+		padding: 10,
+	},
+	waterButtonsContainer: {
+		flexDirection: "row",
+		paddingVertical: 10,
+		justifyContent: "space-between",
+	},
+	statusBarContainer: { flexDirection: "row" },
 })

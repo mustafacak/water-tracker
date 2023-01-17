@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
 	activeStatusBar: {
 		backgroundColor: COLOR.TINT,
 		borderRadius: 0,
-		padding: 15,
+		paddingVertical: 15,
 	},
     infoButton: {
         position: "absolute",

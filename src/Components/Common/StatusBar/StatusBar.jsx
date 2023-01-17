@@ -9,7 +9,7 @@ import { COLOR } from "@configs/Enums"
 export default function StatusBar({ completed, amount, goal, infoOnPress }) {
 	return (
 		<View style={styles.statusBar}>
-			<View style={[styles.activeStatusBar, { width: completed + "%", paddingHorizontal:0 }]}>
+			<View style={[styles.activeStatusBar, { width: completed + "%" }, completed > 100 && {backgroundColor: COLOR.RED}]}>
 				<Text style={styles.text}>Consumed: {`${amount}ml`} ~ %{completed} </Text>
 			</View>
 			

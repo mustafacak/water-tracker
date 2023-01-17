@@ -4,8 +4,13 @@ import { Icon } from "@rneui/themed"
 
 // Utils
 import { COLOR } from "@configs/Enums"
+import { todayFormattedDate } from "../../../Utils/dateHelper"
 
 export default function DayComponent({date, state, marking}) {
+
+
+    const today = todayFormattedDate()
+
     return (
         <TouchableOpacity onPress={() => console.log(date, marking)}>
             <Text
@@ -14,6 +19,10 @@ export default function DayComponent({date, state, marking}) {
                     color: state === "disabled"
                             ? "gray"
                             : COLOR.WHITE,
+                    borderWidth: date.dateString === today ? 2 : 0,
+                    borderColor: COLOR.WHITE,
+                    borderRadius: 50,
+                    paddingHorizontal: 3
                 }}
             >
                 {date.day}

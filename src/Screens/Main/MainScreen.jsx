@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react"
 // React Native
 import { Text, View } from "react-native"
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import { useIsFocused } from "@react-navigation/native"
 
 // Style
 import { styles } from "@styles/Main/MainScreen.styles"
@@ -37,24 +38,10 @@ export default function MainScreen({ navigation }) {
 	const [additiveWaterVolume, setAdditiveWaterVolume] = useState(0)
 	const [consumedWater, setConsumedWater] = useState(0)
 	const [statusPercentage, setStatusPercentage] = useState(0)
-    const [markedDates, setMarkedDates] = useState({
-        // "2023-01-15": {
-        //     //dots: [vacation, massage, workout],
-        //     selected: true,
-        //     selectedColor: "yellow",
-        //     customStyles: {
-        //         container: {
-        //             backgroundColor: "red",
-        //             elevation: 2,
-        //         },
-        //         text: {
-        //             color: "blue",
-        //         },
-        //     },
-        // },
-        // "2023-01-16": {},
-    })
+	const [markedDates, setMarkedDates] = useState({})
 
+    const today = todayFormattedDate()
+    const isFocused = useIsFocused()
 	// useEffect
 	useEffect(() => {
 		AsyncStorage.getItem("userData").then((userData) =>
@@ -63,9 +50,26 @@ export default function MainScreen({ navigation }) {
 		AsyncStorage.getItem("goal").then((goal) =>
 			setGoal(waterConverter(goal)),
 		)
-		setConsumedWater(0)
-		setStatusPercentage(0)
-	}, [])
+
+        AsyncStorage.getItem("markedDates").then((dates) =>
+			console.log("marked dates", JSON.parse(dates),
+            setMarkedDates(JSON.parse(dates))
+		))
+		//AsyncStorage.clear()
+	}, [isFocused])
+
+    useEffect(() => {
+        AsyncStorage.getItem(today).then((dailyConsumed) => {
+
+			if (dailyConsumed !== null) {
+				setConsumedWater(parseInt(dailyConsumed))
+                setStatusPercentage(Math.ceil((parseInt(dailyConsumed) / goal) * 100))
+			} else{
+                setConsumedWater(0)
+            }
+
+		})
+    }, [goal])
 
 	// Definition
 	const calendarTheme = {
@@ -88,6 +92,7 @@ export default function MainScreen({ navigation }) {
 	}
 
 	function handleOnEditGoalNavigation() {
+        setModalVisible(false)
 		navigation.navigate("GoalSetting")
 	}
 
@@ -113,30 +118,47 @@ export default function MainScreen({ navigation }) {
 		setWaterButtonOpacity(newOpacityArray)
 	}
 
-	function addWater() {
-		let consumedVolume = consumedWater  
-		consumedVolume = consumedVolume + additiveWaterVolume
-
-		setConsumedWater(consumedVolume)
-		setStatusPercentage(Math.ceil((consumedVolume / goal) * 100))
-        setAdditiveWaterVolume(0)
-        setWaterButtonOpacity([1,1,1,1])
-        
-        if(consumedVolume >= goal){
-            let copyOfmarkedDates = markedDates
-            let today = todayFormattedDate()
-            copyOfmarkedDates[today] = {}
-            setMarkedDates(copyOfmarkedDates)
-        } 
+	function handleOnAddWater() {
+        if(goal !== 0){
+            let consumedVolume = consumedWater
+            consumedVolume = consumedVolume + additiveWaterVolume
+            setConsumedWater(consumedVolume)
+            setStatusPercentage(Math.ceil((consumedVolume / goal) * 100))
+    
+            // reset buttons
+            setAdditiveWaterVolume(0)
+            setWaterButtonOpacity([1, 1, 1, 1])
+    
+            AsyncStorage.setItem(today, `${consumedVolume}`)
+    
+            if (consumedVolume >= goal) {
+                
+                let copyOfmarkedDates = markedDates ? markedDates : {}
+                copyOfmarkedDates[today] = {}
+                console.log("copyofMarked:", copyOfmarkedDates)
+                setMarkedDates(copyOfmarkedDates)
+                AsyncStorage.setItem(
+                    "markedDates",
+                    JSON.stringify(copyOfmarkedDates),
+                )
+            }
+        } else{
+            setTextArray([`You must enter goal`])
+            setAdditionalButton({
+                buttonTitle: "Add Goal",
+                onPress: handleOnEditGoalNavigation,
+            })
+            setModalVisible(true)
+        }
+		
 	}
-
 
 	// Render
 	return (
 		<View style={styles.container}>
 			<View style={styles.contentContainer}>
 				<Avatar
-					text={userData.firstName + " " + userData.lastName}
+					text={`${userData.firstName} ${userData.lastName}`}
 					onPress={handleOnAvatar}
 				/>
 				<Calendar
@@ -146,7 +168,7 @@ export default function MainScreen({ navigation }) {
 					markedDates={markedDates}
 					dayComponent={DayComponent}
 				/>
-				<View style={{ flexDirection: "row" }}>
+				<View style={styles.statusBarContainer}>
 					<StatusBar
 						amount={consumedWater}
 						completed={statusPercentage}
@@ -177,19 +199,16 @@ export default function MainScreen({ navigation }) {
 						onPress={() => setWaterVol(1000, 3)}
 					/>
 				</View>
-				<Text>
-					{consumedWater} - {additiveWaterVolume}
-				</Text>
 				<CustomButton
 					title={`+ Add ${additiveWaterVolume}ml`}
 					disabled={additiveWaterVolume > 0 ? false : true}
-					onPress={addWater}// handle olarak isimlendir
+					onPress={handleOnAddWater} 
 				/>
 				<CustomModal
 					modalVisible={modalVisible}
+					setModalVisible={setModalVisible}
 					textArray={textArray}
 					additionalButton={additionalButton}
-					setModalVisible={setModalVisible}
 				/>
 			</View>
 		</View>

@@ -40,6 +40,7 @@ export default function RegisterScreen({ navigation }) {
             age: age
         }
         AsyncStorage.setItem("userData", JSON.stringify(userData))
+        AsyncStorage.setItem("markedDates", JSON.stringify({}))
         navigateGoalScreen()
     }
 
@@ -56,12 +57,13 @@ export default function RegisterScreen({ navigation }) {
     }
 
     useEffect(() => {
-        //AsyncStorage.clear()
-
         AsyncStorage.getItem("userData").then((userData) => {
+            //debugger
             if(userData){
                 console.log("userdata var!")
-                navigation.navigate("Main")
+                AsyncStorage.getItem("goal").then((goal) => {
+                    goal ?  navigation.navigate("Main") : navigation.navigate("GoalSetting")
+                })
             } else{
                 console.log("userdata yok ")
             }

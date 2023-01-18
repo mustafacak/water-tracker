@@ -1,10 +1,15 @@
+function padTo2Digits(num) {
+	return num.toString().padStart(2, "0");
+}
+
+function formatDate(date) {
+	return [
+		date.getFullYear(),
+		padTo2Digits(date.getMonth() + 1),
+		padTo2Digits(date.getDate()),
+	].join('-');
+}
+
 export function todayFormattedDate() {
-	const date = new Date()
-
-	const year = date.toLocaleString("default", { year: "numeric" })
-	const month = date.toLocaleString("default", { month: "2-digit" })
-	const day = date.toLocaleString("default", { day: "2-digit" })
-
-    const formattedDate = `${year}-${month}-${day}`
-    return formattedDate
+	return formatDate(new Date())
 }

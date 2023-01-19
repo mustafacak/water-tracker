@@ -13,11 +13,12 @@ import { styles } from "@styles/Main/MainScreen.styles"
 import { Calendar } from "react-native-calendars"
 
 // Config
-import { COLOR } from "@configs/Enums"
+import { COLOR, TITLE } from "@configs/Enums"
 
 // Utils
-import waterConverter from "../../Utils/waterConverter"
-import { todayFormattedDate } from "../../Utils/dateHelper"
+import { NAVIGATION_SCREENS } from "../../Constants/navigationConstants"
+import waterConverter from "@utils/waterConverter"
+import { todayFormattedDate } from "@utils/dateHelper"
 
 // Component
 import WaterButton from "@components/Main/WaterButton/WaterButton"
@@ -93,13 +94,13 @@ export default function MainScreen({ navigation }) {
 
 	function handleOnEditGoalNavigation() {
         setModalVisible(false)
-		navigation.navigate("GoalSettingScreen")
+		navigation.navigate(NAVIGATION_SCREENS.GOAL)
 	}
 
 	function handleOnInfo() {
 		setTextArray([`Your Goal: ${goal}ml`])
 		setAdditionalButton({
-			buttonTitle: "Edit",
+			buttonTitle: TITLE.EDIT,
 			onPress: handleOnEditGoalNavigation,
 		})
 		setModalVisible(true)
@@ -132,10 +133,8 @@ export default function MainScreen({ navigation }) {
             AsyncStorage.setItem(today, `${consumedVolume}`)
     
             if (consumedVolume >= goal) {
-                
                 let copyOfmarkedDates = markedDates ? markedDates : {}
                 copyOfmarkedDates[today] = {}
-                //console.log("copyofMarked:", copyOfmarkedDates)
                 setMarkedDates(copyOfmarkedDates)
                 AsyncStorage.setItem(
                     "markedDates",
@@ -145,7 +144,7 @@ export default function MainScreen({ navigation }) {
         } else{
             setTextArray([`You must enter goal`])
             setAdditionalButton({
-                buttonTitle: "Add Goal",
+                buttonTitle: TITLE.ADD_GOAL,
                 onPress: handleOnEditGoalNavigation,
             })
             setModalVisible(true)

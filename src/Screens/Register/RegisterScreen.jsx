@@ -11,7 +11,8 @@ import { useIsFocused } from "@react-navigation/native"
 import { styles } from "@styles/Register/RegisterScreen.styles"
 
 // Utils
-import { COLOR } from "@configs/Enums"
+import { COLOR, TITLE } from "@configs/Enums"
+import { NAVIGATION_SCREENS } from "../../Constants/navigationConstants"
 
 // Common Component
 import InputText from "@components/Common/InputText/InputText"
@@ -29,11 +30,10 @@ export default function RegisterScreen({ navigation }) {
 
     // Function
     function navigateGoalScreen() {
-        navigation.navigate("GoalSettingScreen")
+        navigation.navigate(NAVIGATION_SCREENS.GOAL)
     }
 
-    function register(){
-        //console.log(firstName + " " + lastName + " " + age)
+    function handleOnRegister(){
         const userData = {
             firstName: firstName,
             lastName: lastName,
@@ -45,24 +45,24 @@ export default function RegisterScreen({ navigation }) {
     }
 
 
-    const fetchAllItems = async () => {
-        try {
-            const keys = await AsyncStorage.getAllKeys()
-            const items = await AsyncStorage.multiGet(keys)
+    // const fetchAllItems = async () => {
+    //     try {
+    //         const keys = await AsyncStorage.getAllKeys()
+    //         const items = await AsyncStorage.multiGet(keys)
     
-            console.table(items)
-        } catch (error) {
-            console.log(error, "problemo")
-        }
-    }
+    //         console.table(items)
+    //     } catch (error) {
+    //         console.log(error, "problemo")
+    //     }
+    // }
 
     useEffect(() => {
         AsyncStorage.getItem("userData").then((userData) => {
-            //debugger
+
             if(userData){
                 console.log("userdata var!")
                 AsyncStorage.getItem("goal").then((goal) => {
-                    goal ?  navigation.navigate("MainScreen") : navigation.navigate("GoalSettingScreen")
+                    goal ?  navigation.navigate(NAVIGATION_SCREENS.MAIN) : navigation.navigate(NAVIGATION_SCREENS.GOAL)
                 })
             } else{
                 console.log("userdata yok ")
@@ -78,10 +78,10 @@ export default function RegisterScreen({ navigation }) {
                 
 				<Icon name="tint" type="font-awesome" size={100} color={COLOR.TINT} />
                 <Text style={styles.title}>Water Tracker</Text>
-				<InputText val={firstName} setVal={setFirstName} placeholder={"First Name"} />
-				<InputText val={lastName} setVal={setLastName} placeholder={"Last Name"} />
-				<InputText val={age} setVal={setAge} placeholder={"Age"} />
-				<CustomButton title={"Save"} onPress={register} />
+				<InputText val={firstName} setVal={setFirstName} placeholder={TITLE.FIRST_NAME} />
+				<InputText val={lastName} setVal={setLastName} placeholder={TITLE.LAST_NAME} />
+				<InputText val={age} setVal={setAge} placeholder={TITLE.AGE} />
+				<CustomButton title={TITLE.SAVE} onPress={handleOnRegister} />
 			</View>
 		</View>
 	)

@@ -20,3 +20,14 @@ export const navigationRoutes = [
 		component: MainScreen,
 	},
 ]
+
+export const loggedRoutes = [
+    {
+        name: NAVIGATION_SCREENS.MAIN,
+        component: MainScreen,
+    },
+    {
+		name: NAVIGATION_SCREENS.GOAL,
+		component: GoalSettingScreen,
+	}
+]

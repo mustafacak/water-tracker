@@ -4,16 +4,19 @@ import React, { useState, useEffect } from "react"
 // React Native
 import { Text, View } from "react-native"
 import { Icon } from "@rneui/themed"
-import { useFocusEffect, useIsFocused } from "@react-navigation/native"
+import { useIsFocused } from "@react-navigation/native"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
 // Style
 import { styles } from "@styles/GoalSetting/GoalSettingScreen.styles"
 
+// Utils
+import { NAVIGATION_SCREENS } from "../../Constants/navigationConstants"
+
 // Common Component
 import InputText from "@components/Common/InputText/InputText"
 import CustomButton from "@components/Common/CustomBotton/CustomButton"
-import { COLOR } from "@configs/Enums"
+import { COLOR, TITLE } from "@configs/Enums"
 
 export default function GoalSettingScreen({ navigation }) {
 
@@ -25,23 +28,24 @@ export default function GoalSettingScreen({ navigation }) {
 
 	// useEffect
 	useEffect(() => {
-		console.log("goal useEffect---------")
-		//debugger
 		AsyncStorage.getItem("goal").then((goal) => {
-			console.log("Goal ü aldım set ettim2", goal)
 			setGoal(goal)
 		})
 	}, [isFocused])
 
 	// Function
 	function navigateMainScreen() {
-		navigation.navigate("MainScreen")
+		navigation.navigate(NAVIGATION_SCREENS.MAIN)
 	}
 
 	function handleOnSave() {
 		AsyncStorage.setItem("goal", goal)
 		navigateMainScreen()
 	}
+
+    function handleOnCancel(){
+        navigateMainScreen()
+    }
 
 	return (
 		<View style={styles.container}>
@@ -52,10 +56,10 @@ export default function GoalSettingScreen({ navigation }) {
 					size={100}
 					color="#5eb6ff"
 				/>
-				<Text style={styles.title}>Daily Water Target</Text>
-				<InputText val={goal} setVal={setGoal} placeholder={"2 lt"} />
-				<CustomButton title={"Save"} onPress={handleOnSave} />
-				<CustomButton title={"Cancel"} color={COLOR.ORANGE} />
+				<Text style={styles.title}>{TITLE.DAILY_WATER_GOAL}</Text>
+				<InputText val={goal} setVal={setGoal} placeholder={TITLE.GOAL_INPUT_PLACEHOLDER} />
+				<CustomButton title={TITLE.SAVE} onPress={handleOnSave} />
+				<CustomButton title={TITLE.CANCEL} color={COLOR.ORANGE} onPress={handleOnCancel} />
 			</View>
 		</View>
 	)

@@ -7,10 +7,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
 // Component
-import RegisterScreen from "@screens/Register/RegisterScreen"
-import GoalSettingScreen from "@screens/GoalSetting/GoalSettingScreen"
-import MainScreen from "@screens/Main/MainScreen"
-import {navigationRoutes} from "./src/Routes/navigationRoutes"
+import LoggedNavigation from "./src/Navigations/LoggedNavigation"
+import UnLoggedNavigation from "./src/Navigations/UnLoggedNavigation"
 
 export default function App() {
 	// useState
@@ -18,7 +16,7 @@ export default function App() {
 
 	// useEffect
 	async function checkFirstTimeLogginIn() {
-		//checkUserLoggedIn
+
 		try {
 			const data = await AsyncStorage.getItem("userData")
 			setIsLogin(data)
@@ -26,7 +24,6 @@ export default function App() {
 			console.log(error)
 		}
 	}
-
 	useEffect(() => {
 		checkFirstTimeLogginIn()
 	}, [isLogin])
@@ -36,50 +33,11 @@ export default function App() {
 
 	return (
 		<NavigationContainer>
-			<Stack.Navigator screenOptions={{ headerShown: false }}>
 				{isLogin ? (
-					<>
-						<Stack.Screen
-							name="MainScreen"
-							component={MainScreen}
-						/>
-						<Stack.Screen name="GoalSettingScreen" component={GoalSettingScreen} />
-					</>
+					<LoggedNavigation />
 				) : (
-					<>
-						{navigationRoutes.map((item, index) => {
-							return (
-								<Stack.Screen
-									key={index}
-									name={item?.name}
-									component={item?.component}
-								/>
-							)
-						})}
-
-						{/* <Stack.Screen
-							name="Register"
-							component={RegisterScreen}
-						/>
-						<Stack.Screen name="Goal" component={GoalScreen} />
-						<Stack.Screen
-							name="Dashboard"
-							component={DashboardScreen}
-						/> */}
-					</>
+                   <UnLoggedNavigation />
 				)}
-			</Stack.Navigator>
-
-
-				{/* <Stack.Navigator
-					screenOptions={{
-						headerShown: false,
-					}}
-				>
-                    <Stack.Screen name="Register" component={RegisterScreen} />
-					<Stack.Screen name="GoalSetting" component={GoalSettingScreen} />
-					<Stack.Screen name="Main" component={MainScreen} />
-				</Stack.Navigator> */}
 		</NavigationContainer>
 	)
 }

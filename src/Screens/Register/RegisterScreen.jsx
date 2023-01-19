@@ -29,7 +29,7 @@ export default function RegisterScreen({ navigation }) {
 
     // Function
     function navigateGoalScreen() {
-        navigation.navigate("GoalSetting")
+        navigation.navigate("GoalSettingScreen")
     }
 
     function register(){
@@ -62,7 +62,7 @@ export default function RegisterScreen({ navigation }) {
             if(userData){
                 console.log("userdata var!")
                 AsyncStorage.getItem("goal").then((goal) => {
-                    goal ?  navigation.navigate("Main") : navigation.navigate("GoalSetting")
+                    goal ?  navigation.navigate("MainScreen") : navigation.navigate("GoalSettingScreen")
                 })
             } else{
                 console.log("userdata yok ")

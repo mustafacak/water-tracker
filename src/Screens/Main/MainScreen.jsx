@@ -93,7 +93,7 @@ export default function MainScreen({ navigation }) {
 
 	function handleOnEditGoalNavigation() {
         setModalVisible(false)
-		navigation.navigate("GoalSetting")
+		navigation.navigate("GoalSettingScreen")
 	}
 
 	function handleOnInfo() {
@@ -135,7 +135,7 @@ export default function MainScreen({ navigation }) {
                 
                 let copyOfmarkedDates = markedDates ? markedDates : {}
                 copyOfmarkedDates[today] = {}
-                console.log("copyofMarked:", copyOfmarkedDates)
+                //console.log("copyofMarked:", copyOfmarkedDates)
                 setMarkedDates(copyOfmarkedDates)
                 AsyncStorage.setItem(
                     "markedDates",
@@ -158,7 +158,7 @@ export default function MainScreen({ navigation }) {
 		<View style={styles.container}>
 			<View style={styles.contentContainer}>
 				<Avatar
-					text={`${userData.firstName} ${userData.lastName}`}
+					text={`${userData?.firstName} ${userData?.lastName}`}
 					onPress={handleOnAvatar}
 				/>
 				<Calendar

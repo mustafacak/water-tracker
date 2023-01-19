@@ -35,7 +35,7 @@ export default function GoalSettingScreen({ navigation }) {
 
 	// Function
 	function navigateMainScreen() {
-		navigation.navigate(NAVIGATION_SCREENS.MAIN)
+		navigation.navigate(NAVIGATION_SCREENS.MAIN) // Sadece screens şeklinde isimlendirebilirsin
 	}
 
 	function handleOnSave() {

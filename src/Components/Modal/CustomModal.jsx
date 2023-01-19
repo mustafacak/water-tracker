@@ -9,6 +9,8 @@ export default function CustomModal({
 	additionalButton,
 	modalVisible,
 	setModalVisible,
+    hasOkey = true, 
+    hasEdit
 }) {
 	return (
 		<Modal

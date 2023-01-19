@@ -44,18 +44,6 @@ export default function RegisterScreen({ navigation }) {
         navigateGoalScreen()
     }
 
-
-    // const fetchAllItems = async () => {
-    //     try {
-    //         const keys = await AsyncStorage.getAllKeys()
-    //         const items = await AsyncStorage.multiGet(keys)
-    
-    //         console.table(items)
-    //     } catch (error) {
-    //         console.log(error, "problemo")
-    //     }
-    // }
-
     useEffect(() => {
         AsyncStorage.getItem("userData").then((userData) => {
 
@@ -63,7 +51,7 @@ export default function RegisterScreen({ navigation }) {
                 console.log("userdata var!")
                 AsyncStorage.getItem("goal").then((goal) => {
                     goal ?  navigation.navigate(NAVIGATION_SCREENS.MAIN) : navigation.navigate(NAVIGATION_SCREENS.GOAL)
-                })
+                }) // reeturn
             } else{
                 console.log("userdata yok ")
             }
@@ -77,7 +65,7 @@ export default function RegisterScreen({ navigation }) {
 			<View style={styles.contentContainer}>
                 
 				<Icon name="tint" type="font-awesome" size={100} color={COLOR.TINT} />
-                <Text style={styles.title}>Water Tracker</Text>
+                <Text style={styles.title}>Water Trackers</Text>
 				<InputText val={firstName} setVal={setFirstName} placeholder={TITLE.FIRST_NAME} />
 				<InputText val={lastName} setVal={setLastName} placeholder={TITLE.LAST_NAME} />
 				<InputText val={age} setVal={setAge} placeholder={TITLE.AGE} />

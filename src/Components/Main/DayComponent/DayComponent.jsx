@@ -6,7 +6,7 @@ import { Icon } from "@rneui/themed"
 import { COLOR } from "@configs/Enums"
 import { todayFormattedDate } from "../../../Utils/dateHelper"
 
-export default function DayComponent({date, state, marking}) {
+export default function DayComponent({date, state, marking}) { // ing yerine default zaman kullan
 
 
     const today = todayFormattedDate()

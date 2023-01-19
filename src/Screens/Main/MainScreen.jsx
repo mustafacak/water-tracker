@@ -99,7 +99,7 @@ export default function MainScreen({ navigation }) {
 
 	function handleOnInfo() {
 		setTextArray([`Your Goal: ${goal}ml`])
-		setAdditionalButton({
+		setAdditionalButton({ // hasOkay 
 			buttonTitle: TITLE.EDIT,
 			onPress: handleOnEditGoalNavigation,
 		})
@@ -121,8 +121,8 @@ export default function MainScreen({ navigation }) {
 
 	function handleOnAddWater() {
         if(goal !== 0){
-            let consumedVolume = consumedWater
-            consumedVolume = consumedVolume + additiveWaterVolume
+            const consumedVolume = consumedVolume + additiveWaterVolume
+            //consumedVolume = consumedVolume + additiveWaterVolume
             setConsumedWater(consumedVolume)
             setStatusPercentage(Math.ceil((consumedVolume / goal) * 100))
     
@@ -132,7 +132,7 @@ export default function MainScreen({ navigation }) {
     
             AsyncStorage.setItem(today, `${consumedVolume}`)
     
-            if (consumedVolume >= goal) {
+            if (consumedVolume > goal) {
                 let copyOfmarkedDates = markedDates ? markedDates : {}
                 copyOfmarkedDates[today] = {}
                 setMarkedDates(copyOfmarkedDates)

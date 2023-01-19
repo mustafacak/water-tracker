@@ -30,11 +30,11 @@ export default function App() {
 
 	// Definition
 	const Stack = createNativeStackNavigator()
-
+    // App Navigation - AuthNavigation
 	return (
 		<NavigationContainer>
 				{isLogin ? (
-					<LoggedNavigation />
+					<LoggedNavigation /> 
 				) : (
                    <UnLoggedNavigation />
 				)}
